@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Define an Enum property for EDM object</Title>
+      <Shortcut>edmenum</Shortcut>
+      <Description>Code snippet for an Enum property for EDM object</Description>
+      <Author>Velika Wang</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>name</ID>
+          <ToolTip>Property Name</ToolTip>
+          <Default>MyProperty</Default>
+        </Literal>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Property Type</ToolTip>
+          <Default>Enum</Default>
+        </Literal>
+        <Literal>
+          <ID>nullable</ID>
+          <ToolTip></ToolTip>
+          <Default>?</Default>
+        </Literal>
+        <Literal>
+          <ID>hiddensuffix</ID>
+          <ToolTip></ToolTip>
+          <Default>Raw</Default>
+        </Literal>
+        <Literal>
+          <ID>hiddentype</ID>
+          <ToolTip></ToolTip>
+          <Default>byte</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[partial void On$name$Changing($type$$nullable$ value);
+partial void On$name$Changed();
+public $type$$nullable$ $name$
+{
+    get
+    {
+        return ($type$$nullable$)this.$name$$hiddensuffix$;
+    }
+    set
+    {
+        this.On$name$Changing(value);
+        this.$name$$hiddensuffix$ = ($hiddentype$$nullable$)value;
+        this.On$name$Changed();
+    }
+}$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

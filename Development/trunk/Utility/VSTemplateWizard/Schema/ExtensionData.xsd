@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio 6.1.16.0 - FREE Community Edition (http://www.liquid-technologies.com)-->
+<xs:schema xmlns:eds="http://velika.vicp.net/Utility/VSTemplateWizard/ExtensionDataSchema" elementFormDefault="qualified" targetNamespace="http://velika.vicp.net/Utility/VSTemplateWizard/ExtensionDataSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="projectExtension" type="eds:ProjectExtension" />
+  <xs:complexType name="ProjectExtension">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="fileSearchItems" type="eds:FileSearchItems" />
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="FileSearchItems">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="item" type="eds:FileSearchItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FileSearchItem">
+    <xs:all>
+      <xs:element minOccurs="0" maxOccurs="1" name="properties" type="eds:ItemProperties" />
+    </xs:all>
+    <xs:attribute name="searchSuffix" type="xs:string" use="required" />
+    <xs:attribute name="nameParameter" type="xs:string" use="optional" />
+    <xs:attribute name="pathParameter" type="xs:string" use="optional" />
+    <xs:attribute name="folderPath" type="xs:string" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="ItemProperties">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="property" type="eds:ItemProperty" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ItemProperty">
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="value" type="xs:string" use="optional" />
+    <xs:attribute name="type" type="eds:ItemPropertyType" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="ItemPropertyType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="int" />
+      <xs:enumeration value="string" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

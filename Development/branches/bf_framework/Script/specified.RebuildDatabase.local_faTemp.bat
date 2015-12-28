@@ -1,0 +1,1 @@
+@_RebuildDataBase "/property:TargetDbServer=localhost;TargetDatabase=faTemp"

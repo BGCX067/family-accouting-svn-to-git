@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FamilyAccountingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="FamilyAccountingModelStoreContainer">
+          <EntitySet Name="ent_LanguageSet" EntityType="FamilyAccountingModel.Store.ent_LanguageSet" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ent_ResourceContent" EntityType="FamilyAccountingModel.Store.ent_ResourceContent" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="met_ResourceGroup" EntityType="FamilyAccountingModel.Store.met_ResourceGroup" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="met_ResourceKey" EntityType="FamilyAccountingModel.Store.met_ResourceKey" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="rec_LanguageSet" EntityType="FamilyAccountingModel.Store.rec_LanguageSet" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="rec_ResourceContent" EntityType="FamilyAccountingModel.Store.rec_ResourceContent" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="rel_ResourceGroup_ResourceKey" EntityType="FamilyAccountingModel.Store.rel_ResourceGroup_ResourceKey" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="ent_LanguageSet_ent_ResourceContent_FK1" Association="FamilyAccountingModel.Store.ent_LanguageSet_ent_ResourceContent_FK1">
+            <End Role="ent_LanguageSet" EntitySet="ent_LanguageSet" />
+            <End Role="ent_ResourceContent" EntitySet="ent_ResourceContent" />
+          </AssociationSet>
+          <AssociationSet Name="met_ResourceGroup_rel_ResourceGroup_ResourceKey_FK1" Association="FamilyAccountingModel.Store.met_ResourceGroup_rel_ResourceGroup_ResourceKey_FK1">
+            <End Role="met_ResourceGroup" EntitySet="met_ResourceGroup" />
+            <End Role="rel_ResourceGroup_ResourceKey" EntitySet="rel_ResourceGroup_ResourceKey" />
+          </AssociationSet>
+          <AssociationSet Name="met_ResourceKey_ent_ResourceContent_FK1" Association="FamilyAccountingModel.Store.met_ResourceKey_ent_ResourceContent_FK1">
+            <End Role="met_ResourceKey" EntitySet="met_ResourceKey" />
+            <End Role="ent_ResourceContent" EntitySet="ent_ResourceContent" />
+          </AssociationSet>
+          <AssociationSet Name="met_ResourceKey_rel_ResourceGroup_ResourceKey_FK1" Association="FamilyAccountingModel.Store.met_ResourceKey_rel_ResourceGroup_ResourceKey_FK1">
+            <End Role="met_ResourceKey" EntitySet="met_ResourceKey" />
+            <End Role="rel_ResourceGroup_ResourceKey" EntitySet="rel_ResourceGroup_ResourceKey" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ent_LanguageSet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="CultureName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ent_ResourceContent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageSetID" Type="int" Nullable="false" />
+          <Property Name="ResourceKeyID" Type="int" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" Nullable="false" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="met_ResourceGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="met_ResourceKey">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="rec_LanguageSet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="LanguageSetID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="CultureName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="rec_ResourceContent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ResourceContentID" Type="int" Nullable="false" />
+          <Property Name="LanguageSetID" Type="int" />
+          <Property Name="ResourceKeyID" Type="int" />
+          <Property Name="Content" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="rel_ResourceGroup_ResourceKey">
+          <Key>
+            <PropertyRef Name="ResourceGroupID" />
+            <PropertyRef Name="ResourceKeyID" />
+          </Key>
+          <Property Name="ResourceGroupID" Type="int" Nullable="false" />
+          <Property Name="ResourceKeyID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="ent_LanguageSet_ent_ResourceContent_FK1">
+          <End Role="ent_LanguageSet" Type="FamilyAccountingModel.Store.ent_LanguageSet" Multiplicity="1" />
+          <End Role="ent_ResourceContent" Type="FamilyAccountingModel.Store.ent_ResourceContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ent_LanguageSet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ent_ResourceContent">
+              <PropertyRef Name="LanguageSetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="met_ResourceGroup_rel_ResourceGroup_ResourceKey_FK1">
+          <End Role="met_ResourceGroup" Type="FamilyAccountingModel.Store.met_ResourceGroup" Multiplicity="1" />
+          <End Role="rel_ResourceGroup_ResourceKey" Type="FamilyAccountingModel.Store.rel_ResourceGroup_ResourceKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="met_ResourceGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="rel_ResourceGroup_ResourceKey">
+              <PropertyRef Name="ResourceGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="met_ResourceKey_ent_ResourceContent_FK1">
+          <End Role="met_ResourceKey" Type="FamilyAccountingModel.Store.met_ResourceKey" Multiplicity="1" />
+          <End Role="ent_ResourceContent" Type="FamilyAccountingModel.Store.ent_ResourceContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="met_ResourceKey">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ent_ResourceContent">
+              <PropertyRef Name="ResourceKeyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="met_ResourceKey_rel_ResourceGroup_ResourceKey_FK1">
+          <End Role="met_ResourceKey" Type="FamilyAccountingModel.Store.met_ResourceKey" Multiplicity="1" />
+          <End Role="rel_ResourceGroup_ResourceKey" Type="FamilyAccountingModel.Store.rel_ResourceGroup_ResourceKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="met_ResourceKey">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="rel_ResourceGroup_ResourceKey">
+              <PropertyRef Name="ResourceKeyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Wang.Velika.FamilyAccounting.Application.Framework.Globalization" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+        <EntityContainer Name="GlobalizationContext">
+          <EntitySet Name="LanguageSetSet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.LanguageSet" />
+          <EntitySet Name="ResourceContentSet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceContent" />
+          <EntitySet Name="ResourceGroupSet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceGroup" />
+          <EntitySet Name="ResourceKeySet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceKey" />
+          <EntitySet Name="LanguageSetHistorySet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.LanguageSetHistory" />
+          <EntitySet Name="ResourceContentHistorySet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceContentHistory" />
+          <AssociationSet Name="ent_LanguageSet_ent_ResourceContent_FK1" Association="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ent_LanguageSet_ent_ResourceContent_FK1">
+            <End Role="ent_LanguageSet" EntitySet="LanguageSetSet" />
+            <End Role="ent_ResourceContent" EntitySet="ResourceContentSet" />
+          </AssociationSet>
+          <AssociationSet Name="met_ResourceKey_ent_ResourceContent_FK1" Association="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.met_ResourceKey_ent_ResourceContent_FK1">
+            <End Role="met_ResourceKey" EntitySet="ResourceKeySet" />
+            <End Role="ent_ResourceContent" EntitySet="ResourceContentSet" />
+          </AssociationSet>
+          <AssociationSet Name="rel_ResourceGroup_ResourceKey" Association="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.rel_ResourceGroup_ResourceKey">
+            <End Role="met_ResourceGroup" EntitySet="ResourceGroupSet" />
+            <End Role="met_ResourceKey" EntitySet="ResourceKeySet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="LanguageSet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CultureName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Contents" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ent_LanguageSet_ent_ResourceContent_FK1" FromRole="ent_LanguageSet" ToRole="ent_ResourceContent" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+        </EntityType>
+        <EntityType Name="ResourceContent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Language" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ent_LanguageSet_ent_ResourceContent_FK1" FromRole="ent_ResourceContent" ToRole="ent_LanguageSet" />
+          <NavigationProperty Name="Key" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.met_ResourceKey_ent_ResourceContent_FK1" FromRole="ent_ResourceContent" ToRole="met_ResourceKey" />
+        </EntityType>
+        <EntityType Name="ResourceGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Comment" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Keys" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.rel_ResourceGroup_ResourceKey" FromRole="met_ResourceGroup" ToRole="met_ResourceKey" />
+        </EntityType>
+        <EntityType Name="ResourceKey">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Comment" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Contents" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.met_ResourceKey_ent_ResourceContent_FK1" FromRole="met_ResourceKey" ToRole="ent_ResourceContent" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <NavigationProperty Name="BelongToGroups" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.rel_ResourceGroup_ResourceKey" FromRole="met_ResourceKey" ToRole="met_ResourceGroup" />
+        </EntityType>
+        <EntityType Name="LanguageSetHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="LanguageSetID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CultureName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ResourceContentHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ResourceContentID" Type="Int32" Nullable="false" />
+          <Property Name="LanguageSetID" Type="Int32" />
+          <Property Name="ResourceKeyID" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <Association Name="ent_LanguageSet_ent_ResourceContent_FK1">
+          <End Role="ent_LanguageSet" Type="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.LanguageSet" Multiplicity="1" />
+          <End Role="ent_ResourceContent" Type="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceContent" Multiplicity="*" />
+        </Association>
+        <Association Name="met_ResourceKey_ent_ResourceContent_FK1">
+          <End Role="met_ResourceKey" Type="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceKey" Multiplicity="1" />
+          <End Role="ent_ResourceContent" Type="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceContent" Multiplicity="*" />
+        </Association>
+        <Association Name="rel_ResourceGroup_ResourceKey">
+          <End Role="met_ResourceGroup" Type="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceGroup" Multiplicity="*" />
+          <End Role="met_ResourceKey" Type="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceKey" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="FamilyAccountingModelStoreContainer" CdmEntityContainer="GlobalizationContext">
+          <EntitySetMapping Name="LanguageSetSet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Globalization.LanguageSet)">
+              <MappingFragment StoreEntitySet="ent_LanguageSet">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CultureName" ColumnName="CultureName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResourceContentSet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceContent)">
+              <MappingFragment StoreEntitySet="ent_ResourceContent">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResourceGroupSet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceGroup)">
+              <MappingFragment StoreEntitySet="met_ResourceGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResourceKeySet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceKey)">
+              <MappingFragment StoreEntitySet="met_ResourceKey">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LanguageSetHistorySet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Globalization.LanguageSetHistory)">
+              <MappingFragment StoreEntitySet="rec_LanguageSet">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LanguageSetID" ColumnName="LanguageSetID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CultureName" ColumnName="CultureName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResourceContentHistorySet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceContentHistory)">
+              <MappingFragment StoreEntitySet="rec_ResourceContent">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ResourceContentID" ColumnName="ResourceContentID" />
+                <ScalarProperty Name="LanguageSetID" ColumnName="LanguageSetID" />
+                <ScalarProperty Name="ResourceKeyID" ColumnName="ResourceKeyID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ent_LanguageSet_ent_ResourceContent_FK1" TypeName="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ent_LanguageSet_ent_ResourceContent_FK1" StoreEntitySet="ent_ResourceContent">
+            <EndProperty Name="ent_LanguageSet">
+              <ScalarProperty Name="ID" ColumnName="LanguageSetID" />
+            </EndProperty>
+            <EndProperty Name="ent_ResourceContent">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="met_ResourceKey_ent_ResourceContent_FK1" TypeName="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.met_ResourceKey_ent_ResourceContent_FK1" StoreEntitySet="ent_ResourceContent">
+            <EndProperty Name="met_ResourceKey">
+              <ScalarProperty Name="ID" ColumnName="ResourceKeyID" />
+            </EndProperty>
+            <EndProperty Name="ent_ResourceContent">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="rel_ResourceGroup_ResourceKey" TypeName="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.rel_ResourceGroup_ResourceKey" StoreEntitySet="rel_ResourceGroup_ResourceKey">
+            <EndProperty Name="met_ResourceGroup">
+              <ScalarProperty Name="ID" ColumnName="ResourceGroupID" />
+            </EndProperty>
+            <EndProperty Name="met_ResourceKey">
+              <ScalarProperty Name="ID" ColumnName="ResourceKeyID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="DataModel">
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.LanguageSet" Width="1.5" PointX="5.125" PointY="1" Height="1.5923063151041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceContent" Width="1.5" PointX="4.125" PointY="3.375" Height="1.5923063151041665" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceGroup" Width="1.5" PointX="0.75" PointY="1" Height="1.592306315104167" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceKey" Width="1.5" PointX="3" PointY="0.875" Height="1.7566536458333333" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.LanguageSetHistory" Width="1.5" PointX="3.5" PointY="6.875" Height="1.592306315104167" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ResourceContentHistory" Width="1.5" PointX="0.75" PointY="6.75" Height="1.7566536458333335" IsExpanded="true" />
+        <AssociationConnector Association="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.ent_LanguageSet_ent_ResourceContent_FK1" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.375" PointY="2.5923063151041674" />
+          <ConnectorPoint PointX="5.375" PointY="3.375" />
+          </AssociationConnector>
+        <AssociationConnector Association="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.met_ResourceKey_ent_ResourceContent_FK1" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.3125" PointY="2.6316536458333335" />
+          <ConnectorPoint PointX="4.3125" PointY="3.375" /></AssociationConnector>
+        <AssociationConnector Association="Wang.Velika.FamilyAccounting.Application.Framework.Globalization.rel_ResourceGroup_ResourceKey" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.7961531575520835" />
+          <ConnectorPoint PointX="3" PointY="1.7961531575520835" /></AssociationConnector></Diagram></edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

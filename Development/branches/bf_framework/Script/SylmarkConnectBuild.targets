@@ -1,0 +1,57 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <GlobalRootPath>$(MSBuildProjectDirectory)\..\..\..</GlobalRootPath>
+    <ProjectRootPath>$(MSBuildProjectDirectory)\..</ProjectRootPath>
+    <OutputRootPath>$(ProjectRootPath)\_tempOutput</OutputRootPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ScriptRootPath>$(ProjectRootPath)\Script</ScriptRootPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SourceCodeRootPath>$(ProjectRootPath)\Code</SourceCodeRootPath>
+    <OutputBuildPath>$(OutputRootPath)\bin</OutputBuildPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DeployCodeRootPath>$(ProjectRootPath)\Deployment</DeployCodeRootPath>
+    <DeployCodeSolutionFileName>Deployment.sln</DeployCodeSolutionFileName>
+    <OutputDeployPath>$(OutputRootPath)\Deploy</OutputDeployPath>
+    <DBScriptRunnerExecName>Deployment.DBScriptRunner.MSSQL.exe</DBScriptRunnerExecName>
+    <DBSchemaRetrieverrExecName>Deployment.DBSchemaRetriever.MSSQL</DBSchemaRetrieverrExecName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DBScriptRootPath>$(ProjectRootPath)\Database</DBScriptRootPath>
+    <MSSQLScriptRootPath>$(DBScriptRootPath)\MSSQL</MSSQLScriptRootPath>
+    <CreateDBScriptPathSegment>Current</CreateDBScriptPathSegment>
+    <UpgradeDBScriptPathSegment>Upgrade</UpgradeDBScriptPathSegment>
+    <FundamentalStructureDBScriptPathSegment>$(CreateDBScriptPathSegment)\100_FundamentalStructure</FundamentalStructureDBScriptPathSegment>
+    <FundamentalTablesDBScriptPathSegment>$(FundamentalStructureDBScriptPathSegment)\100_Generated\100_Table</FundamentalTablesDBScriptPathSegment>
+    <FundamentalIndexesDBScriptPathSegment>$(FundamentalStructureDBScriptPathSegment)\100_Generated\200_Index</FundamentalIndexesDBScriptPathSegment>
+    <FundamentalForeignKeysDBScriptPathSegment>$(FundamentalStructureDBScriptPathSegment)\100_Generated\300_ForeignKey</FundamentalForeignKeysDBScriptPathSegment>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ToolRootPath>$(GlobalRootPath)\Tool</ToolRootPath>
+    <ToolMSSQLSDKPath>$(ToolRootPath)\MSSQL2005</ToolMSSQLSDKPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SQLCMDFileSource>$(ToolMSSQLSDKPath)\SQLCMD.exe</SQLCMDFileSource>
+  </PropertyGroup>
+  
+  <Target Name="ClearOutput">
+    <RemoveDir Directories="$(OutputRootPath)" />
+  </Target>
+  <Target Name="BuildDeploy" DependsOnTargets="ClearOutput">
+    <MSBuild Projects="$(DeployCodeRootPath)\$(DeployCodeSolutionFileName)" Targets="ReBuild" Properties="OutputPath=$(OutputDeployPath);Configuration=Debug" />
+  </Target>
+  <Target Name="RebuildMSSQLDataBase" DependsOnTargets="BuildDeploy">
+    <Exec Command="$(OutputDeployPath)\$(DBScriptRunnerExecName) /utility: $(SQLCMDFileSource) /server: $(TargetDbServer) /database: $(TargetDatabase) /script:$(MSSQLScriptRootPath)\$(CreateDBScriptPathSegment) /create" />
+  </Target>
+  <Target Name="RebuildDataBase" DependsOnTargets="RebuildMSSQLDataBase">
+  </Target>
+  <Target Name="RetrieveMSSQLDBSchema" DependsOnTargets="BuildDeploy">
+    <Exec Command="$(OutputDeployPath)\$(DBSchemaRetrieverrExecName) /server: $(SourceDbServer) /database: $(SourceDatabase) /table: $(MSSQLScriptRootPath)\$(FundamentalTablesDBScriptPathSegment) /index: $(MSSQLScriptRootPath)\$(FundamentalIndexesDBScriptPathSegment) /fk: $(MSSQLScriptRootPath)\$(FundamentalForeignKeysDBScriptPathSegment)" />
+  </Target>
+  <Target Name="RetrieveDBSchema" DependsOnTargets="RetrieveMSSQLDBSchema">
+  </Target>
+  <Target Name="RefreshDBFormStandard" DependsOnTargets="RetrieveDBSchema;RebuildDataBase">
+  </Target>
+</Project>

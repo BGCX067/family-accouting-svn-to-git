@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section name="loggingConfiguration" type="Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.LoggingSettings, Microsoft.Practices.EnterpriseLibrary.Logging" />
+  </configSections>
+
+  <loggingConfiguration tracingEnabled="true" defaultCategory="General">
+    <logFilters>
+    </logFilters>
+
+    <categorySources>
+      <add
+				name="test"
+				switchValue="All">
+        <listeners>
+          <add name="Flat File Destination" />
+          <!--<add name="mockTraceListener" />-->
+        </listeners>
+      </add>
+    </categorySources>
+
+    <specialSources>
+      <errors name="errors" switchValue="All">
+        <listeners>
+          <add name="Flat File Destination" />
+        </listeners>
+      </errors>
+    </specialSources>
+
+    <listeners>
+      <add name="Flat File Destination"
+				type="Microsoft.Practices.EnterpriseLibrary.Logging.TraceListeners.FlatFileTraceListener, Microsoft.Practices.EnterpriseLibrary.Logging"
+				listenerDataType="Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.FlatFileTraceListenerData, Microsoft.Practices.EnterpriseLibrary.Logging"
+				fileName ="trace.log"
+				header="----------------header------------------------"
+				footer="----------------footer------------------------"
+				/>
+      <add name="mockTraceListener"
+           type="Common.Logging.Test.MockTraceListener, Common.Logging.Test"
+           listenerDataType="Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.TraceListenerData, Microsoft.Practices.EnterpriseLibrary.Logging"
+           />
+    </listeners>
+    <formatters>
+    </formatters>
+  </loggingConfiguration>
+</configuration>

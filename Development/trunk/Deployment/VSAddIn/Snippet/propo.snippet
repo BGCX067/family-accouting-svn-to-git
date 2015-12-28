@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Define an on-demand innitialed property</Title>
+      <Shortcut>propo</Shortcut>
+      <Description>Code snippet for an on-demand innitialed property</Description>
+      <Author>Velika Wang</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Property Type</ToolTip>
+          <Default>Object</Default>
+        </Literal>
+        <Literal>
+          <ID>field</ID>
+          <ToolTip>Field Name</ToolTip>
+          <Default>_myProperty</Default>
+        </Literal>
+        <Literal>
+          <ID>accessibility</ID>
+          <ToolTip>Accessibility</ToolTip>
+          <Default>public</Default>
+        </Literal>
+        <Literal>
+          <ID>name</ID>
+          <ToolTip>Property Name</ToolTip>
+          <Default>MyProperty</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[private $type$ $field$;
+$accessibility$ $type$ $name$
+{
+    get
+    {
+        if (this.$field$ == null)
+        {
+            this.$field$ = new $type$();
+        }
+        return this.$field$;
+    }
+}$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

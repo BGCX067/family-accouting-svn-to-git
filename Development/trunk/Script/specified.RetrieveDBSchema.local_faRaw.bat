@@ -1,0 +1,1 @@
+@_RetrieveDBSchema "/property:SourceDbServer=localhost;SourceDatabase=faRaw"

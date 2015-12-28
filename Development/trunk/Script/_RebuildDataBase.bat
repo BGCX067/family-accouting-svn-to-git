@@ -1,0 +1,1 @@
+@__runBuild.bat RebuildDataBase %*

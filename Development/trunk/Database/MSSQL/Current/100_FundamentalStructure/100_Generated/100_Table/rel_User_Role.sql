@@ -1,0 +1,10 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [rel_User_Role](
+	[UserID] [int] NOT NULL,
+	[RoleID] [int] NOT NULL
+)
+
+GO

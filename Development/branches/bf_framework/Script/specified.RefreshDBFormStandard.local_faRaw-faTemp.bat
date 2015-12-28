@@ -1,0 +1,1 @@
+@_RefreshDBFormStandard "/property:SourceDbServer=localhost;SourceDatabase=faRaw;TargetDbServer=localhost;TargetDatabase=faTemp"

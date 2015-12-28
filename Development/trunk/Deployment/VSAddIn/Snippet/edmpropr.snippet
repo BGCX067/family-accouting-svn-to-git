@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Define an ReferenceCollection property for EDM object</Title>
+      <Shortcut>edmpropr</Shortcut>
+      <Description>Code snippet for an ReferenceCollection for EDM object</Description>
+      <Author>Velika Wang</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>name</ID>
+          <ToolTip>Property Name</ToolTip>
+          <Default>MyProperty</Default>
+        </Literal>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Item type</ToolTip>
+          <Default>EntityObject</Default>
+        </Literal>
+        <Literal>
+          <ID>pid</ID>
+          <ToolTip>Property ID</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[public EntityReference<$type$> $name$Reference
+{
+    get
+    {
+        return this.DecorateEntityReference($pid$, this.$name$RawReference);
+    }
+}
+
+public $type$ $name$
+{
+    get
+    {
+        return this.$name$Reference.Value;
+    }
+    set
+    {
+        this.$name$Reference.Value = value;
+    }
+}]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

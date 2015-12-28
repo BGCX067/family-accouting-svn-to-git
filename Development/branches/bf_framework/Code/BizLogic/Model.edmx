@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FamilyAccountingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="FamilyAccountingModelStoreContainer">
+          <EntitySet Name="ent_Account" EntityType="FamilyAccountingModel.Store.ent_Account" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ent_AccountCategory" EntityType="FamilyAccountingModel.Store.ent_AccountCategory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ent_Entry" EntityType="FamilyAccountingModel.Store.ent_Entry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ent_EntryGroup" EntityType="FamilyAccountingModel.Store.ent_EntryGroup" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="ent_Account_ent_Entry_FK1__Debit" Association="FamilyAccountingModel.Store.ent_Account_ent_Entry_FK1__Debit">
+            <End Role="ent_Account" EntitySet="ent_Account" />
+            <End Role="ent_Entry" EntitySet="ent_Entry" />
+          </AssociationSet>
+          <AssociationSet Name="ent_Account_ent_Entry_FK2__Credit" Association="FamilyAccountingModel.Store.ent_Account_ent_Entry_FK2__Credit">
+            <End Role="ent_Account" EntitySet="ent_Account" />
+            <End Role="ent_Entry" EntitySet="ent_Entry" />
+          </AssociationSet>
+          <AssociationSet Name="ent_AccountCategory_ent_Account_FK1" Association="FamilyAccountingModel.Store.ent_AccountCategory_ent_Account_FK1">
+            <End Role="ent_AccountCategory" EntitySet="ent_AccountCategory" />
+            <End Role="ent_Account" EntitySet="ent_Account" />
+          </AssociationSet>
+          <AssociationSet Name="ent_AccountCategory_ent_AccountCategory_FK1" Association="FamilyAccountingModel.Store.ent_AccountCategory_ent_AccountCategory_FK1">
+            <End Role="ent_AccountCategory" EntitySet="ent_AccountCategory" />
+            <End Role="ent_AccountCategory1" EntitySet="ent_AccountCategory" />
+          </AssociationSet>
+          <AssociationSet Name="ent_EntryGroup_ent_Entry_FK1" Association="FamilyAccountingModel.Store.ent_EntryGroup_ent_Entry_FK1">
+            <End Role="ent_EntryGroup" EntitySet="ent_EntryGroup" />
+            <End Role="ent_Entry" EntitySet="ent_Entry" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ent_Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="CommonDirection" Type="tinyint" />
+          <Property Name="Balance" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="ent_AccountCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ParentCategoryID" Type="int" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="DefaultDirection" Type="tinyint" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="ent_Entry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="DebitAccountID" Type="int" Nullable="false" />
+          <Property Name="CreditAccountID" Type="int" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="ent_EntryGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OccurrenceTimestamp" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <Association Name="ent_Account_ent_Entry_FK1__Debit">
+          <End Role="ent_Account" Type="FamilyAccountingModel.Store.ent_Account" Multiplicity="1" />
+          <End Role="ent_Entry" Type="FamilyAccountingModel.Store.ent_Entry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ent_Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ent_Entry">
+              <PropertyRef Name="DebitAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ent_Account_ent_Entry_FK2__Credit">
+          <End Role="ent_Account" Type="FamilyAccountingModel.Store.ent_Account" Multiplicity="1" />
+          <End Role="ent_Entry" Type="FamilyAccountingModel.Store.ent_Entry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ent_Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ent_Entry">
+              <PropertyRef Name="CreditAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ent_AccountCategory_ent_Account_FK1">
+          <End Role="ent_AccountCategory" Type="FamilyAccountingModel.Store.ent_AccountCategory" Multiplicity="1" />
+          <End Role="ent_Account" Type="FamilyAccountingModel.Store.ent_Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ent_AccountCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ent_Account">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ent_AccountCategory_ent_AccountCategory_FK1">
+          <End Role="ent_AccountCategory" Type="FamilyAccountingModel.Store.ent_AccountCategory" Multiplicity="0..1" />
+          <End Role="ent_AccountCategory1" Type="FamilyAccountingModel.Store.ent_AccountCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ent_AccountCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ent_AccountCategory1">
+              <PropertyRef Name="ParentCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ent_EntryGroup_ent_Entry_FK1">
+          <End Role="ent_EntryGroup" Type="FamilyAccountingModel.Store.ent_EntryGroup" Multiplicity="1" />
+          <End Role="ent_Entry" Type="FamilyAccountingModel.Store.ent_Entry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ent_EntryGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ent_Entry">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Wang.Velika.FamilyAccounting.BizLogic" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+        <EntityContainer Name="EntitiesContext">
+          <EntitySet Name="AccountSet" EntityType="Wang.Velika.FamilyAccounting.BizLogic.Account" />
+          <EntitySet Name="AccountCategorySet" EntityType="Wang.Velika.FamilyAccounting.BizLogic.AccountCategory" />
+          <EntitySet Name="EntrySet" EntityType="Wang.Velika.FamilyAccounting.BizLogic.Entry" />
+          <EntitySet Name="EntryGroupSet" EntityType="Wang.Velika.FamilyAccounting.BizLogic.EntryGroup" />
+          <AssociationSet Name="ent_Account_ent_Entry_FK1__Debit" Association="Wang.Velika.FamilyAccounting.BizLogic.ent_Account_ent_Entry_FK1__Debit">
+            <End Role="ent_Account" EntitySet="AccountSet" />
+            <End Role="ent_Entry" EntitySet="EntrySet" />
+          </AssociationSet>
+          <AssociationSet Name="ent_Account_ent_Entry_FK2__Credit" Association="Wang.Velika.FamilyAccounting.BizLogic.ent_Account_ent_Entry_FK2__Credit">
+            <End Role="ent_Account" EntitySet="AccountSet" />
+            <End Role="ent_Entry" EntitySet="EntrySet" />
+          </AssociationSet>
+          <AssociationSet Name="ent_AccountCategory_ent_Account_FK1" Association="Wang.Velika.FamilyAccounting.BizLogic.ent_AccountCategory_ent_Account_FK1">
+            <End Role="ent_AccountCategory" EntitySet="AccountCategorySet" />
+            <End Role="ent_Account" EntitySet="AccountSet" />
+          </AssociationSet>
+          <AssociationSet Name="ent_AccountCategory_ent_AccountCategory_FK1" Association="Wang.Velika.FamilyAccounting.BizLogic.ent_AccountCategory_ent_AccountCategory_FK1">
+            <End Role="ent_AccountCategory" EntitySet="AccountCategorySet" />
+            <End Role="ent_AccountCategory1" EntitySet="AccountCategorySet" />
+          </AssociationSet>
+          <AssociationSet Name="ent_EntryGroup_ent_Entry_FK1" Association="Wang.Velika.FamilyAccounting.BizLogic.ent_EntryGroup_ent_Entry_FK1">
+            <End Role="ent_EntryGroup" EntitySet="EntryGroupSet" />
+            <End Role="ent_Entry" EntitySet="EntrySet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="CommonDirectionRaw" Type="Byte" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:GetterAccess="Private" />
+          <Property Name="Balance" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="DebitEntries" Relationship="Wang.Velika.FamilyAccounting.BizLogic.ent_Account_ent_Entry_FK1__Debit" FromRole="ent_Account" ToRole="ent_Entry" />
+          <NavigationProperty Name="CreditEntryies" Relationship="Wang.Velika.FamilyAccounting.BizLogic.ent_Account_ent_Entry_FK2__Credit" FromRole="ent_Account" ToRole="ent_Entry" />
+          <NavigationProperty Name="Category" Relationship="Wang.Velika.FamilyAccounting.BizLogic.ent_AccountCategory_ent_Account_FK1" FromRole="ent_Account" ToRole="ent_AccountCategory" />
+        </EntityType>
+        <EntityType Name="AccountCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="DefaultDirectionRaw" Type="Byte" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+          <Property Name="Description" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="DirectAccounts" Relationship="Wang.Velika.FamilyAccounting.BizLogic.ent_AccountCategory_ent_Account_FK1" FromRole="ent_AccountCategory" ToRole="ent_Account" />
+          <NavigationProperty Name="SubCategories" Relationship="Wang.Velika.FamilyAccounting.BizLogic.ent_AccountCategory_ent_AccountCategory_FK1" FromRole="ent_AccountCategory" ToRole="ent_AccountCategory1" />
+          <NavigationProperty Name="ParentCategory" Relationship="Wang.Velika.FamilyAccounting.BizLogic.ent_AccountCategory_ent_AccountCategory_FK1" FromRole="ent_AccountCategory1" ToRole="ent_AccountCategory" />
+        </EntityType>
+        <EntityType Name="Entry">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="DebitAccount" Relationship="Wang.Velika.FamilyAccounting.BizLogic.ent_Account_ent_Entry_FK1__Debit" FromRole="ent_Entry" ToRole="ent_Account" />
+          <NavigationProperty Name="CreditAccount" Relationship="Wang.Velika.FamilyAccounting.BizLogic.ent_Account_ent_Entry_FK2__Credit" FromRole="ent_Entry" ToRole="ent_Account" />
+          <NavigationProperty Name="Group" Relationship="Wang.Velika.FamilyAccounting.BizLogic.ent_EntryGroup_ent_Entry_FK1" FromRole="ent_Entry" ToRole="ent_EntryGroup" />
+        </EntityType>
+        <EntityType Name="EntryGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="OccurrenceTimestamp" Type="DateTime" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Entries" Relationship="Wang.Velika.FamilyAccounting.BizLogic.ent_EntryGroup_ent_Entry_FK1" FromRole="ent_EntryGroup" ToRole="ent_Entry" />
+        </EntityType>
+        <Association Name="ent_Account_ent_Entry_FK1__Debit">
+          <End Role="ent_Account" Type="Wang.Velika.FamilyAccounting.BizLogic.Account" Multiplicity="1" />
+          <End Role="ent_Entry" Type="Wang.Velika.FamilyAccounting.BizLogic.Entry" Multiplicity="*" />
+        </Association>
+        <Association Name="ent_Account_ent_Entry_FK2__Credit">
+          <End Role="ent_Account" Type="Wang.Velika.FamilyAccounting.BizLogic.Account" Multiplicity="1" />
+          <End Role="ent_Entry" Type="Wang.Velika.FamilyAccounting.BizLogic.Entry" Multiplicity="*" />
+        </Association>
+        <Association Name="ent_AccountCategory_ent_Account_FK1">
+          <End Role="ent_AccountCategory" Type="Wang.Velika.FamilyAccounting.BizLogic.AccountCategory" Multiplicity="1" />
+          <End Role="ent_Account" Type="Wang.Velika.FamilyAccounting.BizLogic.Account" Multiplicity="*" />
+        </Association>
+        <Association Name="ent_AccountCategory_ent_AccountCategory_FK1">
+          <End Role="ent_AccountCategory" Type="Wang.Velika.FamilyAccounting.BizLogic.AccountCategory" Multiplicity="0..1" />
+          <End Role="ent_AccountCategory1" Type="Wang.Velika.FamilyAccounting.BizLogic.AccountCategory" Multiplicity="*" />
+        </Association>
+        <Association Name="ent_EntryGroup_ent_Entry_FK1">
+          <End Role="ent_EntryGroup" Type="Wang.Velika.FamilyAccounting.BizLogic.EntryGroup" Multiplicity="1" />
+          <End Role="ent_Entry" Type="Wang.Velika.FamilyAccounting.BizLogic.Entry" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="FamilyAccountingModelStoreContainer" CdmEntityContainer="EntitiesContext">
+          <EntitySetMapping Name="AccountSet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.BizLogic.Account)">
+              <MappingFragment StoreEntitySet="ent_Account">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CommonDirectionRaw" ColumnName="CommonDirection" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountCategorySet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.BizLogic.AccountCategory)">
+              <MappingFragment StoreEntitySet="ent_AccountCategory">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="DefaultDirectionRaw" ColumnName="DefaultDirection" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntrySet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.BizLogic.Entry)">
+              <MappingFragment StoreEntitySet="ent_Entry">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntryGroupSet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.BizLogic.EntryGroup)">
+              <MappingFragment StoreEntitySet="ent_EntryGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OccurrenceTimestamp" ColumnName="OccurrenceTimestamp" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ent_Account_ent_Entry_FK1__Debit" TypeName="Wang.Velika.FamilyAccounting.BizLogic.ent_Account_ent_Entry_FK1__Debit" StoreEntitySet="ent_Entry">
+            <EndProperty Name="ent_Account">
+              <ScalarProperty Name="ID" ColumnName="DebitAccountID" />
+            </EndProperty>
+            <EndProperty Name="ent_Entry">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ent_Account_ent_Entry_FK2__Credit" TypeName="Wang.Velika.FamilyAccounting.BizLogic.ent_Account_ent_Entry_FK2__Credit" StoreEntitySet="ent_Entry">
+            <EndProperty Name="ent_Account">
+              <ScalarProperty Name="ID" ColumnName="CreditAccountID" />
+            </EndProperty>
+            <EndProperty Name="ent_Entry">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ent_AccountCategory_ent_Account_FK1" TypeName="Wang.Velika.FamilyAccounting.BizLogic.ent_AccountCategory_ent_Account_FK1" StoreEntitySet="ent_Account">
+            <EndProperty Name="ent_AccountCategory">
+              <ScalarProperty Name="ID" ColumnName="CategoryID" />
+            </EndProperty>
+            <EndProperty Name="ent_Account">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ent_AccountCategory_ent_AccountCategory_FK1" TypeName="Wang.Velika.FamilyAccounting.BizLogic.ent_AccountCategory_ent_AccountCategory_FK1" StoreEntitySet="ent_AccountCategory">
+            <EndProperty Name="ent_AccountCategory">
+              <ScalarProperty Name="ID" ColumnName="ParentCategoryID" />
+            </EndProperty>
+            <EndProperty Name="ent_AccountCategory1">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <Condition ColumnName="ParentCategoryID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ent_EntryGroup_ent_Entry_FK1" TypeName="Wang.Velika.FamilyAccounting.BizLogic.ent_EntryGroup_ent_Entry_FK1" StoreEntitySet="ent_Entry">
+            <EndProperty Name="ent_EntryGroup">
+              <ScalarProperty Name="ID" ColumnName="GroupID" />
+            </EndProperty>
+            <EndProperty Name="ent_Entry">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="Model">
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.BizLogic.Account" Width="1.5" PointX="5.375" PointY="0.625" Height="2.4140429687499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.BizLogic.AccountCategory" Width="1.5" PointX="8.125" PointY="0.75" Height="2.2496956380208317" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.BizLogic.Entry" Width="1.5" PointX="3" PointY="0.875" Height="1.9210009765625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.BizLogic.EntryGroup" Width="1.5" PointX="0.75" PointY="1.125" Height="1.592306315104167" IsExpanded="true" />
+        <AssociationConnector Association="Wang.Velika.FamilyAccounting.BizLogic.ent_Account_ent_Entry_FK1__Debit" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.375" PointY="1.83550048828125" />
+          <ConnectorPoint PointX="4.5" PointY="1.83550048828125" />
+          </AssociationConnector>
+        <AssociationConnector Association="Wang.Velika.FamilyAccounting.BizLogic.ent_Account_ent_Entry_FK2__Credit" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.375" PointY="1.2927502441406249" />
+          <ConnectorPoint PointX="4.5" PointY="1.2927502441406249" />
+          </AssociationConnector>
+        <AssociationConnector Association="Wang.Velika.FamilyAccounting.BizLogic.ent_AccountCategory_ent_Account_FK1" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.125" PointY="1.8748478190104159" />
+          <ConnectorPoint PointX="6.875" PointY="1.8748478190104159" />
+          </AssociationConnector>
+        <AssociationConnector Association="Wang.Velika.FamilyAccounting.BizLogic.ent_AccountCategory_ent_AccountCategory_FK1" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.6569230769230767" PointY="2.9996956380208317" />
+          <ConnectorPoint PointX="8.6569230769230767" PointY="3.2496956380208317" />
+          <ConnectorPoint PointX="9.1034615384615378" PointY="3.2496956380208317" />
+          <ConnectorPoint PointX="9.1034615384615378" PointY="2.9996956380208317" /></AssociationConnector>
+        <AssociationConnector Association="Wang.Velika.FamilyAccounting.BizLogic.ent_EntryGroup_ent_Entry_FK1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.9211531575520835" />
+          <ConnectorPoint PointX="3" PointY="1.9211531575520835" />
+          </AssociationConnector></Diagram></edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

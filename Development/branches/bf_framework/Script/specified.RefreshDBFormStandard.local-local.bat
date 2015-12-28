@@ -1,0 +1,1 @@
+@_RefreshDBFormStandard "/property:SourceDbServer=localhost;SourceDatabase=FamilyAccounting;TargetDbServer=localhost;TargetDatabase=FamilyAccounting"

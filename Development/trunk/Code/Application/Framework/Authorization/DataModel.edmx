@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="WangVelikaFamilyAccountingApplicationFrameworkAuthorizationStoreContainer">
+          <EntitySet Name="ent_Role" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.ent_Role" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ent_User" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.ent_User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="met_Permission" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.met_Permission" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="met_PermissionSet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.met_PermissionSet" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="rec_Role" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.rec_Role" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="rec_User" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.rec_User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="rel_PermissionSet_Permission" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.rel_PermissionSet_Permission" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="rel_Role_PermissionSet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.rel_Role_PermissionSet" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="rel_User_Role" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.rel_User_Role" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="ent_Role_rel_Role_PermissionSet_FK1" Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.ent_Role_rel_Role_PermissionSet_FK1">
+            <End Role="ent_Role" EntitySet="ent_Role" />
+            <End Role="rel_Role_PermissionSet" EntitySet="rel_Role_PermissionSet" />
+          </AssociationSet>
+          <AssociationSet Name="ent_Role_rel_User_Role_FK1" Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.ent_Role_rel_User_Role_FK1">
+            <End Role="ent_Role" EntitySet="ent_Role" />
+            <End Role="rel_User_Role" EntitySet="rel_User_Role" />
+          </AssociationSet>
+          <AssociationSet Name="ent_User_rel_User_Role_FK1" Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.ent_User_rel_User_Role_FK1">
+            <End Role="ent_User" EntitySet="ent_User" />
+            <End Role="rel_User_Role" EntitySet="rel_User_Role" />
+          </AssociationSet>
+          <AssociationSet Name="met_Permission_rel_PermissionSet_Permission_FK1" Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.met_Permission_rel_PermissionSet_Permission_FK1">
+            <End Role="met_Permission" EntitySet="met_Permission" />
+            <End Role="rel_PermissionSet_Permission" EntitySet="rel_PermissionSet_Permission" />
+          </AssociationSet>
+          <AssociationSet Name="met_PermissionSet_rel_PermissionSet_Permission_FK1" Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.met_PermissionSet_rel_PermissionSet_Permission_FK1">
+            <End Role="met_PermissionSet" EntitySet="met_PermissionSet" />
+            <End Role="rel_PermissionSet_Permission" EntitySet="rel_PermissionSet_Permission" />
+          </AssociationSet>
+          <AssociationSet Name="met_PermissionSet_rel_Role_PermissionSet_FK1" Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.met_PermissionSet_rel_Role_PermissionSet_FK1">
+            <End Role="met_PermissionSet" EntitySet="met_PermissionSet" />
+            <End Role="rel_Role_PermissionSet" EntitySet="rel_Role_PermissionSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ent_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="IsFixed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ent_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="met_Permission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="met_PermissionSet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="rec_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="IsFixed" Type="bit" />
+        </EntityType>
+        <EntityType Name="rec_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="rel_PermissionSet_Permission">
+          <Key>
+            <PropertyRef Name="PermissionSetID" />
+            <PropertyRef Name="PermissionID" />
+          </Key>
+          <Property Name="PermissionSetID" Type="int" Nullable="false" />
+          <Property Name="PermissionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rel_Role_PermissionSet">
+          <Key>
+            <PropertyRef Name="RoleID" />
+            <PropertyRef Name="PermissionSetID" />
+          </Key>
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="PermissionSetID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rel_User_Role">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="ent_Role_rel_Role_PermissionSet_FK1">
+          <End Role="ent_Role" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.ent_Role" Multiplicity="1" />
+          <End Role="rel_Role_PermissionSet" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.rel_Role_PermissionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ent_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="rel_Role_PermissionSet">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ent_Role_rel_User_Role_FK1">
+          <End Role="ent_Role" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.ent_Role" Multiplicity="1" />
+          <End Role="rel_User_Role" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.rel_User_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ent_Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="rel_User_Role">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ent_User_rel_User_Role_FK1">
+          <End Role="ent_User" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.ent_User" Multiplicity="1" />
+          <End Role="rel_User_Role" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.rel_User_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ent_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="rel_User_Role">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="met_Permission_rel_PermissionSet_Permission_FK1">
+          <End Role="met_Permission" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.met_Permission" Multiplicity="1" />
+          <End Role="rel_PermissionSet_Permission" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.rel_PermissionSet_Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="met_Permission">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="rel_PermissionSet_Permission">
+              <PropertyRef Name="PermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="met_PermissionSet_rel_PermissionSet_Permission_FK1">
+          <End Role="met_PermissionSet" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.met_PermissionSet" Multiplicity="1" />
+          <End Role="rel_PermissionSet_Permission" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.rel_PermissionSet_Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="met_PermissionSet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="rel_PermissionSet_Permission">
+              <PropertyRef Name="PermissionSetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="met_PermissionSet_rel_Role_PermissionSet_FK1">
+          <End Role="met_PermissionSet" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.met_PermissionSet" Multiplicity="1" />
+          <End Role="rel_Role_PermissionSet" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Store.rel_Role_PermissionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="met_PermissionSet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="rel_Role_PermissionSet">
+              <PropertyRef Name="PermissionSetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Wang.Velika.FamilyAccounting.Application.Framework.Authorization" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+        <EntityContainer Name="AuthorizationContext">
+          <EntitySet Name="RoleSet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Role" />
+          <EntitySet Name="UserSet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.User" />
+          <EntitySet Name="PermissionSet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Permission" />
+          <EntitySet Name="PermissionSetSet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.PermissionSet" />
+          <EntitySet Name="RoleHistorySet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.RoleHistory" />
+          <EntitySet Name="UserHistorySet" EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.UserHistory" />
+          <AssociationSet Name="rel_PermissionSet_Permission" Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_PermissionSet_Permission">
+            <End Role="met_Permission" EntitySet="PermissionSet" />
+            <End Role="met_PermissionSet" EntitySet="PermissionSetSet" />
+          </AssociationSet>
+          <AssociationSet Name="rel_Role_PermissionSet" Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_Role_PermissionSet">
+            <End Role="ent_Role" EntitySet="RoleSet" />
+            <End Role="met_PermissionSet" EntitySet="PermissionSetSet" />
+          </AssociationSet>
+          <AssociationSet Name="rel_User_Role" Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_User_Role">
+            <End Role="ent_Role" EntitySet="RoleSet" />
+            <End Role="ent_User" EntitySet="UserSet" /></AssociationSet></EntityContainer>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <Property Name="IsFixed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PermissionSets" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_Role_PermissionSet" FromRole="ent_Role" ToRole="met_PermissionSet" />
+          <NavigationProperty Name="Users" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_User_Role" FromRole="ent_Role" ToRole="ent_User" /></EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Roles" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_User_Role" FromRole="ent_User" ToRole="ent_Role" /></EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="BelongToPermissionSets" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_PermissionSet_Permission" FromRole="met_Permission" ToRole="met_PermissionSet" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+        </EntityType>
+        <EntityType Name="PermissionSet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Permissions" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_PermissionSet_Permission" FromRole="met_PermissionSet" ToRole="met_Permission" />
+          <NavigationProperty Name="BelongToRoles" Relationship="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_Role_PermissionSet" FromRole="met_PermissionSet" ToRole="ent_Role" a:GetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Private" />
+        </EntityType>
+        <EntityType Name="RoleHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" Unicode="true" FixedLength="false" />
+          <Property Name="IsFixed" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserHistory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <Association Name="rel_PermissionSet_Permission">
+          <End Role="met_Permission" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Permission" Multiplicity="*" />
+          <End Role="met_PermissionSet" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.PermissionSet" Multiplicity="*" />
+        </Association>
+        <Association Name="rel_Role_PermissionSet">
+          <End Role="ent_Role" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Role" Multiplicity="*" />
+          <End Role="met_PermissionSet" Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.PermissionSet" Multiplicity="*" />
+        </Association>
+        <Association Name="rel_User_Role">
+          <End Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Role" Role="ent_Role" Multiplicity="*" />
+          <End Type="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.User" Role="ent_User" Multiplicity="*" /></Association></Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="WangVelikaFamilyAccountingApplicationFrameworkAuthorizationStoreContainer" CdmEntityContainer="AuthorizationContext">
+          <EntitySetMapping Name="RoleSet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Role)">
+              <MappingFragment StoreEntitySet="ent_Role">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsFixed" ColumnName="IsFixed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Authorization.User)">
+              <MappingFragment StoreEntitySet="ent_User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PermissionSet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Permission)">
+              <MappingFragment StoreEntitySet="met_Permission">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PermissionSetSet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Authorization.PermissionSet)">
+              <MappingFragment StoreEntitySet="met_PermissionSet">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleHistorySet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Authorization.RoleHistory)">
+              <MappingFragment StoreEntitySet="rec_Role">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsFixed" ColumnName="IsFixed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserHistorySet">
+            <EntityTypeMapping TypeName="IsTypeOf(Wang.Velika.FamilyAccounting.Application.Framework.Authorization.UserHistory)">
+              <MappingFragment StoreEntitySet="rec_User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="rel_PermissionSet_Permission" TypeName="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_PermissionSet_Permission" StoreEntitySet="rel_PermissionSet_Permission">
+            <EndProperty Name="met_Permission">
+              <ScalarProperty Name="ID" ColumnName="PermissionID" />
+            </EndProperty>
+            <EndProperty Name="met_PermissionSet">
+              <ScalarProperty Name="ID" ColumnName="PermissionSetID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="rel_Role_PermissionSet" TypeName="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_Role_PermissionSet" StoreEntitySet="rel_Role_PermissionSet">
+            <EndProperty Name="ent_Role">
+              <ScalarProperty Name="ID" ColumnName="RoleID" />
+            </EndProperty>
+            <EndProperty Name="met_PermissionSet">
+              <ScalarProperty Name="ID" ColumnName="PermissionSetID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="rel_User_Role" TypeName="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_User_Role" StoreEntitySet="rel_User_Role">
+            <EndProperty Name="ent_User">
+              <ScalarProperty Name="ID" ColumnName="UserID" /></EndProperty>
+            <EndProperty Name="ent_Role">
+              <ScalarProperty Name="ID" ColumnName="RoleID" /></EndProperty></AssociationSetMapping></EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="DataModel">
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Role" Width="1.5" PointX="3.125" PointY="0.5" Height="1.9210009765624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.User" Width="1.5" PointX="0.75" PointY="0.5" Height="1.4279589843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.Permission" Width="1.5" PointX="0.625" PointY="3.625" Height="1.592306315104167" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.PermissionSet" Width="1.5" PointX="3" PointY="3.375" Height="1.7566536458333333" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.RoleHistory" Width="1.5" PointX="0.5" PointY="6.5" Height="1.7566536458333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.UserHistory" Width="1.5" PointX="2.625" PointY="6.625" Height="1.4279589843749998" IsExpanded="true" />
+        <AssociationConnector Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_PermissionSet_Permission" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.125" PointY="4.3783268229166667" />
+          <ConnectorPoint PointX="3" PointY="4.3783268229166667" />
+          </AssociationConnector>
+        <AssociationConnector Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_Role_PermissionSet" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.8125" PointY="2.4210009765624996" />
+          <ConnectorPoint PointX="3.8125" PointY="3.375" />
+          </AssociationConnector>
+        <AssociationConnector Association="Wang.Velika.FamilyAccounting.Application.Framework.Authorization.rel_User_Role" >
+          <ConnectorPoint PointX="3.125" PointY="1.2139794921874998" />
+          <ConnectorPoint PointX="2.25" PointY="1.2139794921874998" /></AssociationConnector></Diagram></edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

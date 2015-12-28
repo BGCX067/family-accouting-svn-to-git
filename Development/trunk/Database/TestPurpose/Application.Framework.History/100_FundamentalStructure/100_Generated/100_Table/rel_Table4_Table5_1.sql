@@ -1,0 +1,10 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [rel_Table4_Table5_1](
+	[Table4ID] [int] NOT NULL,
+	[Table5ID] [int] NOT NULL
+)
+
+GO

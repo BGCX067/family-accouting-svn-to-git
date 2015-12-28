@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>FamilyAccounting Test</Name>
+    <Description>Template for test application of FamilyAccounting</Description>
+    <Icon>Icon.ico</Icon>
+    <TemplateID>$NamespacePrefix$</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <SortOrder>10</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <ProvideDefaultName>false</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="Project.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+    </Project>
+    <CustomParameters>
+      <CustomParameter Name="$DefaultNamespace$" Value="Wang.Velika.FamilyAccounting"/>
+      <CustomParameter Name="$ProjectName$" Value=""/>
+      <CustomParameter Name="$GlobalAssemblyInfoFilePath$" Value=""/>
+    </CustomParameters>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>Utility.VSTemplateWizard, Version=0.1.0.0, Culture=neutral, PublicKeyToken=8fa0cf0b7bbf2958</Assembly>
+    <FullClassName>Wang.Velika.Utility.VSTemplateWizard.ProjectTemplateWizard</FullClassName>
+  </WizardExtension>
+  <WizardData>
+    <projectExtension xmlns="http://velika.vicp.net/Utility/VSTemplateWizard/ExtensionDataSchema">
+      <fileSearchItems>
+        <item searchSuffix="GlobalAssemblyInfo.cs" pathParameter="$GlobalAssemblyInfoFilePath$" folderPath="/Properties">
+          <properties>
+          	<property name="BuildAction" type="int" value="1" />
+          </properties>
+        </item>
+        <item searchSuffix="Misc\TestSetting\Application\App.config" pathParameter="$ConfigFilePath$" folderPath="/">
+          <properties>
+          	<property name="BuildAction" type="int" value="0" />
+          </properties>
+        </item>
+        <item searchSuffix="Reference\Test\nunit.framework.dll" pathParameter="$NUnitAssemblyPath$" />
+      </fileSearchItems>
+    </projectExtension>
+  </WizardData>
+</VSTemplate>
